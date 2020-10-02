@@ -21,9 +21,10 @@
     box-sizing: border-box;
 }
 
-h1{
+h1 {
     position: fixed;
     z-index: -100;
+    opacity: 0;
 }
 
 
@@ -85,11 +86,18 @@ h1{
 }
 
 .list__link {
+    cursor: pointer;
     color: var(--color-light-xl);
     font-family: Arial, sans-serif;
     font-size: 15px;
     line-height: 160%;
     font-weight: 400;
+    text-decoration: none;
+    border-bottom: solid 3px transparent;
+}
+
+.list__link:hover {
+    border-bottom: solid 3px var(--color-primary-color);
 }
 
 .list__link_active {
@@ -110,7 +118,7 @@ h1{
     width: 100%;
     padding-top: 180px;
     display: flex;
-    background: url("../../assets/images/noise_transparent@2x.png"),
+    background: url("../../assets/images/header/noise_transparent@2x.png"),
     radial-gradient(100% 215.42% at 0% 0%, #58483A 0%, #262425 100%),
     #211F20;
 );
@@ -268,9 +276,10 @@ h1{
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    padding: 30px 35px;
+    padding: 0 0 30px 0;
     background-color: var(--color-light-s);
     border-radius: 9px;
+
 }
 
 .card:hover {
@@ -485,7 +494,7 @@ h1{
 
 .donation-content {
     width: 100%;
-    padding-top: 80px;
+    padding-top: 82px;
     padding-bottom: 102px;
 
     display: flex;
@@ -498,7 +507,7 @@ h1{
 }
 
 .information__title {
-    padding-top: 2px;
+    /*padding-top: 2px;*/
     max-width: 300px;
 
     font-family: Georgia, sans-serif;
@@ -533,10 +542,9 @@ h1{
     text-decoration: none;
 }
 
-.credit-card:hover{
+.credit-card:hover {
     background-color: var(--color-primary-light);
 }
-
 
 
 .credit-card__img {
@@ -568,15 +576,15 @@ h1{
 
 
 .footer {
-    width: 100%;
-    background: url("../../assets/images/noise_transparent@2x.png"),
+    width: 100vw;
+    background: url("../../assets/images/header/noise_transparent@2x.png"),
     radial-gradient(100% 215.42% at 0% 0%, #58483A 0%, #262425 100%),
     #211F20;
 );
 }
 
 .footer-content {
-    padding-top: 40px;
+    padding-top: 35px;
     width: 100%;
 
     display: flex;
