@@ -29,10 +29,9 @@ h1 {
 
 
 .header {
-
     /*width: 100vw;*/
     width: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     padding: 30px 0;
     background-color: var(--color-light-xl);
@@ -50,6 +49,10 @@ h1 {
 .logo {
     display: flex;
     flex-direction: column;
+}
+
+.burger-menu {
+    display: none;
 }
 
 .logo__title {
@@ -115,16 +118,14 @@ h1 {
 
 
 .main {
+    background-color: green;
     /*width: 100vw;*/
     width: 100%;
-    display: flex;
-    flex-direction: column;
 }
 
 .pets {
     width: 100%;
     padding-top: 120px;
-    display: flex;
     background-color: var(--color-light-l);
 );
 }
@@ -134,13 +135,13 @@ h1 {
     padding-top: 80px;
     padding-bottom: 100px;
     width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
 }
 
+.title-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .pets-content__title {
     max-width: 400px;
@@ -161,39 +162,24 @@ h1 {
 
 
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-
-}
-
-.cards-line1-wrapper {
-    width: 100%;
-    display: flex;
     flex-wrap: wrap;
 
-    margin-bottom: 30px;
 }
-
-.cards-line2-wrapper {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-}
-
 
 .card {
+    margin-bottom: 30px;
+
     cursor: pointer;
     display: flex;
     flex-direction: column;
     padding: 0 0 30px 0;
     background-color: var(--color-light-s);
     border-radius: 9px;
-
-    margin-right: 40px;
 }
 
-.card:last-of-type{
+.card:last-of-type {
     margin-right: 0;
 }
 
@@ -249,7 +235,8 @@ h1 {
 
 
 .navigation-wrapper {
-    margin-top: 60px;
+    margin: 30px auto 0;
+    /*margin-top: 60px;*/
     width: 340px;
 
     display: flex;
@@ -314,6 +301,7 @@ h1 {
 
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .footer-contacts {
@@ -453,19 +441,10 @@ h1 {
     }
 
     .cards-content-wrapper {
+        justify-content: center;
         margin-top: 40px;
     }
 
-    .cards-line1-wrapper {
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-bottom: 0;
-    }
-
-    .cards-line2-wrapper {
-        justify-content: center;
-        flex-wrap: wrap;
-    }
 
     .card {
         margin-right: 0;
@@ -476,19 +455,18 @@ h1 {
         margin-right: 40px;
     }
 
-    .card-768{
+    .card-768 {
         display: none;
     }
 
-    .navigation-wrapper{
+    .navigation-wrapper {
         margin-top: 10px;
     }
 
 
+    /*Footer*/
 
-
-    .footer-content{
-        flex-wrap: wrap;
+    .footer-content {
         justify-content: center;
         padding-top: 30px;
     }
@@ -497,12 +475,105 @@ h1 {
         padding-top: 0;
         margin-right: 61px;
     }
+
     .footer-location {
         padding-top: 0;
     }
 
-    .footer-img{
+    .footer-img {
         margin-top: 60px;
+        width: 300px;
+        height: 315px;
+    }
+}
+
+
+@media screen and (max-width: 320px) {
+    .wrapper {
+        max-width: 300px;
+        align-items: center;
+
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .burger-menu {
+        margin-right: 40px;
+        height: 22px;
+
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .burger-menu span {
+        width: 30px;
+        height: 2px;
+        background-color: #000000
+    }
+
+    .pets-content {
+        padding-top: 40px;
+        padding-bottom: 30px;
+    }
+
+    .pets-content__title {
+        font-size: 25px;
+    }
+
+    .cards-content-wrapper {
+        justify-content: center;
+        margin-top: 49px;
+    }
+
+    .card {
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
+
+    .card:nth-child(odd) {
+        margin-right: 0;
+    }
+
+    .card-320 {
+        display: none;
+    }
+
+    .navigation-wrapper {
+        margin-top: 0;
+        max-width: 300px;
+    }
+
+
+    /*Footer*/
+
+    .footer-content {
+        justify-content: center;
+        padding-top: 30px;
+    }
+
+    .footer-contacts {
+        padding-top: 0;
+        margin-right: 0
+    }
+    .footer-contacts__title{
+       text-align: center;
+    }
+
+    .footer-location {
+        margin-top: 40px;
+    }
+
+    .footer-location__title{
+        text-align: center;
+    }
+
+    .footer-img {
+        margin-top: 90px;
         width: 300px;
         height: 315px;
     }
