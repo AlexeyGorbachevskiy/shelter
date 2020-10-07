@@ -438,33 +438,13 @@ h1 {
 
 .help-list-wrapper {
     margin-top: 60px;
-    margin-left: 87px;
-    margin-right: 87px;
     width: 100%;
 
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-}
-
-.help-list1 {
-    width: 100%;
-
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
-}
-
-.help-list2 {
-    margin-top: 55px;
-    padding-left: 84px;
-    padding-right: 84px;
-    width: 100%;
-
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
+    column-gap: 119px;
+    row-gap: 55px;
 }
 
 
@@ -474,6 +454,7 @@ h1 {
     justify-content: center;
     align-items: center;
 }
+
 
 .help-list-item h4 {
     margin-top: 31px;
@@ -497,7 +478,7 @@ h1 {
 .donation-content {
     width: 100%;
     padding-top: 82px;
-    padding-bottom: 102px;
+    padding-bottom: 100px;
 
     display: flex;
     justify-content: center;
@@ -522,7 +503,7 @@ h1 {
 }
 
 .information__subtitle {
-    margin: 21px 0 20px 0;
+    margin: 21px 0 19px 0;
 
     font-family: Georgia, sans-serif;
     font-style: normal;
@@ -587,15 +568,16 @@ h1 {
 }
 
 .footer-content {
-    padding-top: 35px;
+    padding-top: 38px;
     width: 100%;
 
     display: flex;
     justify-content: space-between;
 }
 
+
 .footer-contacts {
-    padding-top: 22px;
+    padding-top: 20px;
     max-width: 279px;
 
     display: flex;
@@ -660,7 +642,7 @@ h1 {
 
 
 .footer-location {
-    padding-top: 22px;
+    padding-top: 20px;
     max-width: 302px;
 
     display: flex;
@@ -721,13 +703,170 @@ h1 {
 }
 
 
+@media screen and (max-width: 1279px) {
 
 
+    .header {
+        top: 30px;
+    }
+
+    .logo {
+        margin-left: 30px;
+    }
+
+    .menu {
+        margin-right: 30px;
+    }
+
+    .hero {
+        padding-top: 150px;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content-section {
+        align-items: flex-start;
+        padding-right: 0;
+        padding-bottom: 100px;
+    }
+
+    .hero-content__img {
+        max-width: 569px;
+        align-self: flex-start;
+        margin-left: 140px;
+    }
+
+    .content-section__title {
+        padding-top: 0;
+    }
+
+    .content-section__subtitle {
+        max-width: 460px;
+    }
+
+    .content-section__button {
+        margin-top: 42px;
+        align-self: center;
+    }
 
 
+    .about-content {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .about-content-section__title {
+        margin-top: 0;
+    }
+
+    .about-content-section__subtitle {
+        max-width: 436px;
+    }
+
+    .about-content__img {
+        margin-right: 0;
+        margin-top: 80px;
+    }
+
+    .cards-content-wrapper {
+        justify-content: center;
+        column-gap: 12px;
+    }
 
 
+    .cards-wrapper {
+        column-gap: 40px;
+    }
 
+    .card-768_invisible {
+        display: none;
+    }
+
+    .card:nth-child(2) {
+        margin: 0;
+    }
+
+    .card__title {
+        padding: 32px 0;
+    }
+
+    .cards-wrapper__btn-right {
+        margin-top: 1px;
+    }
+
+    .cards-wrapper__btn-left {
+        margin-top: 1px;
+    }
+
+    .help-content {
+        padding-left: 69px;
+        padding-right: 69px;
+    }
+
+
+    .help-list-wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        /*column-gap: 120px;*/
+        column-gap: 10%;
+        /*row-gap: 16%;*/
+        row-gap: 54px;
+        /*justify-content: center;*/
+    }
+
+
+    .donation-content {
+        flex-direction: column-reverse;
+
+        width: 100%;
+        padding-top: 82px;
+        padding-bottom: 100px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .information {
+        margin-bottom: 61px;
+    }
+
+    .donation-content__img {
+        margin: 0;
+    }
+
+
+    /*Footer*/
+    .footer-content {
+        display: grid;
+        grid-template-rows: auto;
+        justify-content: space-evenly;
+        padding-top: 30px;
+    }
+
+    .footer-contacts {
+        padding-top: 0;
+    }
+
+    .footer-location {
+        padding-top: 0;
+    }
+
+
+    .footer-img {
+        margin-top: 65px;
+        grid-column: 1/ 3;
+        justify-self: center;
+        /*width: 300px;*/
+        /*height: 310px;*/
+    }
+
+
+}
 
 
 
