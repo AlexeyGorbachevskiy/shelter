@@ -21,6 +21,11 @@
     box-sizing: border-box;
 }
 
+
+.sidebar {
+    display: none;
+}
+
 h1 {
     position: fixed;
     z-index: -100;
@@ -49,7 +54,7 @@ h1 {
     flex-direction: column;
 }
 
-.burger-menu {
+.burger-menu-icon {
     display: none;
 }
 
@@ -180,6 +185,7 @@ h1 {
     color: var(--color-dark-xl);
 }
 
+
 .content-section__button:hover {
     background-color: var(--color-primary-light);
 }
@@ -279,13 +285,19 @@ h1 {
 
 
 .card {
+    display: none;
+
     cursor: pointer;
-    display: flex;
+    /*display: flex;*/
     flex-direction: column;
     padding: 0 0 30px 0;
     background-color: var(--color-light-s);
     border-radius: 9px;
 
+}
+
+.card_visible {
+    display: flex;
 }
 
 .card:hover {
@@ -882,6 +894,101 @@ h1 {
 
 @media screen and (max-width: 767px) {
 
+
+    .blackout {
+        position: fixed;
+        z-index: 1100;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(41, 41, 41, 0.6);
+    }
+
+    .sidebar {
+        display: block;
+        z-index: 1200;
+        width: 320px;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        right: -320px;
+        transition: .6s;
+
+        background-color: var(--color-dark-3xl);
+    }
+
+    .sidebar_active {
+        right: 0px;
+    }
+
+    .sidebar-logo {
+        position: fixed;
+        z-index: 1300;
+        right: 124px;
+        top: 30px;
+    }
+
+
+    .sidebar-burgerMenuIcon {
+        position: fixed;
+        z-index: 1300;
+        top: 49px;
+        right: 0;
+        margin-right: 0;
+
+        transform: rotate(-90deg);
+        -webkit-transform: rotate(-90deg)
+    }
+
+
+    .sidebar-menu {
+        margin-top: 248px;
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .sidebar-menu-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        list-style-type: none;
+
+    }
+
+    .sidebar-menu-list__item {
+        display: flex;
+        align-items: center;
+    }
+
+    .sidebar-menu-list__link {
+        margin-bottom: 38px;
+        cursor: pointer;
+        color: var(--color-light-xl);
+        font-family: Arial, sans-serif;
+        line-height: 160%;
+        text-decoration: none;
+        border-bottom: solid 3px transparent;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 32px;
+
+    }
+
+    .sidebar-menu-list__link:hover {
+        border-bottom: solid 3px var(--color-primary-color);
+    }
+
+    .sidebar-menu-list__link_active {
+        margin-bottom: 40px;
+        border-bottom: solid 3px var(--color-primary-color);
+    }
+
+    .sidebar-menu-list__link_disabled {
+        color: var(--color-dark-s);
+    }
+
+
     .wrapper {
         max-width: 100%;
         align-items: center;
@@ -895,7 +1002,7 @@ h1 {
         margin-left: 10px;
     }
 
-    .burger-menu {
+    .burger-menu-icon {
         padding-top: 1px;
         margin-right: 53px;
         height: 22px;
@@ -905,12 +1012,15 @@ h1 {
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
+
+        transition-duration: 0.8s;
+        transition-property: transform;
     }
 
-    .burger-menu span {
+    .burger-menu-icon span {
         width: 30px;
         height: 2px;
-        background-color: var(--color-primary-color)
+        background-color: var(--color-primary-color);
     }
 
 
@@ -1196,6 +1306,58 @@ h1 {
     }
 
 
+    /*TODO*/
+    /* Slide Animation*/
+    .card {
+        position: relative;
+        animation: 0.5s ease-in-out;
+    }
+
+
+    .to-left {
+        animation-name: left;
+    }
+
+    .to-right {
+        animation-name: left;
+        animation-direction: reverse;
+    }
+
+    .from-left {
+        animation-name: right;
+        animation-direction: reverse;
+    }
+
+    .from-right {
+        animation-name: right;
+    }
+
+
+    @keyframes left {
+        from {
+            left: 0;
+        }
+        to {
+            left: -100%;
+        }
+    }
+
+    @keyframes right {
+        from {
+            left: 100%;
+        }
+        to {
+            left: 0;
+        }
+    }
+
+
 }
+
+
+
+
+
+
 
 
