@@ -279,13 +279,15 @@ h1 {
     align-items: center;
 }
 
+
 .cards-wrapper {
     display: flex;
+    order:2;
 }
 
 
 .card {
-    display: none;
+    display: flex;
 
     cursor: pointer;
     /*display: flex;*/
@@ -296,9 +298,6 @@ h1 {
 
 }
 
-.card_visible {
-    display: flex;
-}
 
 .card:hover {
     box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
@@ -361,6 +360,7 @@ h1 {
 
 
 .cards-wrapper__btn-left {
+    order: 1;
     padding: 15px;
 
     outline: none;
@@ -383,6 +383,7 @@ h1 {
 
 
 .cards-wrapper__btn-right {
+    order: 3;
     cursor: pointer;
     padding: 15px;
 
@@ -804,6 +805,7 @@ h1 {
         column-gap: 40px;
     }
 
+
     .card-768_invisible {
         display: none;
     }
@@ -1123,8 +1125,9 @@ h1 {
     }
 
     .cards-wrapper {
-
+        order: -1;
     }
+
 
     .card__title {
         padding-top: 30px;
@@ -1147,6 +1150,7 @@ h1 {
 
 
     .cards-wrapper__btn-left-320 {
+        order:2;
         margin-right: 77px;
 
 
@@ -1162,6 +1166,7 @@ h1 {
     }
 
     .cards-wrapper__btn-right-320 {
+        order:3;
         cursor: pointer;
         padding: 15px;
 
@@ -1306,57 +1311,55 @@ h1 {
     }
 
 
-    /*TODO*/
-    /* Slide Animation*/
-    .card {
-        position: relative;
-        animation: 0.5s ease-in-out;
-    }
-
-
-    .to-left {
-        animation-name: left;
-    }
-
-    .to-right {
-        animation-name: left;
-        animation-direction: reverse;
-    }
-
-    .from-left {
-        animation-name: right;
-        animation-direction: reverse;
-    }
-
-    .from-right {
-        animation-name: right;
-    }
-
-
-    @keyframes left {
-        from {
-            left: 0;
-        }
-        to {
-            left: -100%;
-        }
-    }
-
-    @keyframes right {
-        from {
-            left: 100%;
-        }
-        to {
-            left: 0;
-        }
-    }
-
-
 }
 
 
 
 
+
+/* Slide Animation*/
+.cards-wrapper {
+    position: relative;
+    animation: 0.5s ease-in-out;
+}
+
+
+.to-left {
+    animation-name: left;
+}
+
+.to-right {
+    animation-name: right;
+    animation-direction: reverse;
+}
+
+.from-left {
+    animation-name: left;
+    animation-direction: reverse;
+}
+
+.from-right {
+    animation-name: right;
+}
+
+
+@keyframes left {
+    from {
+        left: 0;
+    }
+    to {
+        left: -100%;
+    }
+}
+
+@keyframes right {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 0;
+    }
+}
 
 
 
