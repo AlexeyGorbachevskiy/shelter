@@ -1,28 +1,28 @@
 // Resize
-function resize() {
-    let cards = document.querySelectorAll('.card')
-    if (window.innerWidth >= 1280) {
-        cards[1].classList.add('card_visible')
-        cards[2].classList.add('card_visible')
-    }
-
-    if (window.innerWidth >= 768 && window.innerWidth < 1280) {
-        cards[2].classList.remove('card_visible')
-        cards[1].classList.add('card_visible')
-    }
-
-    if (window.innerWidth < 768) {
-        cards[1].classList.remove('card_visible')
-        cards[2].classList.remove('card_visible');
-    }
-}
-
-window.onload = function () {
-    resize()
-}
-window.addEventListener(`resize`, event => {
-    resize();
-}, false);
+// function resize() {
+//     let cards = document.querySelectorAll('.card')
+//     if (window.innerWidth >= 1280) {
+//         cards[1].classList.add('card_visible')
+//         cards[2].classList.add('card_visible')
+//     }
+//
+//     if (window.innerWidth >= 768 && window.innerWidth < 1280) {
+//         cards[2].classList.remove('card_visible')
+//         cards[1].classList.add('card_visible')
+//     }
+//
+//     if (window.innerWidth < 768) {
+//         cards[1].classList.remove('card_visible')
+//         cards[2].classList.remove('card_visible');
+//     }
+// }
+//
+// window.onload = function () {
+//     resize()
+// }
+// window.addEventListener(`resize`, event => {
+//     resize();
+// }, false);
 
 
 // Slider
@@ -117,7 +117,6 @@ const pets = [
         "parasites": ["lice", "fleas"]
     }
 ]
-let nextSliderElements = [];
 let isEnabled = true;
 let leftBtn = document.querySelector('.cards-wrapper__btn-left');
 let leftBtn320 = document.querySelector('.cards-wrapper__btn-left-320');
@@ -149,11 +148,11 @@ rightBtn.addEventListener('click', function () {
     }
 })
 
-const getVisibleCards = () => document.querySelectorAll('.card_visible')
+const getAllCards = () => document.querySelectorAll('.card')
 
-function generateNextCardsRandomIndexes(visibleCards) {
+function generateNextCardsRandomIndexes(cards) {
     let randomIndexes = [];
-    loop: for (let i = 0; i < visibleCards.length; i++) {
+    loop: for (let i = 0; i < cards.length; i++) {
         const min = 0;
         const max = pets.length - 1;
         let rand = min + Math.random() * (max + 1 - min);
@@ -171,7 +170,6 @@ function generateNextCardsRandomIndexes(visibleCards) {
 }
 
 function createSliderElements(index) {
-
     let card = document.createElement('div');
     card.classList.add('card');
     let img = document.createElement('img');
@@ -192,18 +190,30 @@ function createSliderElements(index) {
     card.appendChild(img);
     card.appendChild(h3);
     card.appendChild(cardBtnWrapper);
-    nextSliderElements = [...nextSliderElements, card];
+    return card
 }
 
 function toggleSlider() {
-    // clear elements array
-    nextSliderElements = [];
-    const visibleCards = getVisibleCards();
-    console.log(visibleCards)
-    const randomIndexes = generateNextCardsRandomIndexes(visibleCards)
-    for (let val of randomIndexes) {
-        createSliderElements(val)
+    let cardsWrapper = document.createElement('div');
+    cardsWrapper.classList.add('cards-wrapper');
+
+    const visibleCards = getAllCards();
+    const randomIndexes = generateNextCardsRandomIndexes(visibleCards);
+
+
+    for (let i = 0; i < randomIndexes.length; i++) {
+        let card = createSliderElements(randomIndexes[i]);
+        if (i === 1) {
+            card.classList.add('card-320_invisible')
+        }
+        if (i === 2) {
+            card.classList.add('card-768_invisible')
+        }
+        cardsWrapper.appendChild(card);
     }
+
+
+    return cardsWrapper
 }
 
 
@@ -217,41 +227,34 @@ function nextItem() {
     showItem('from-right');
 }
 
+
 function hideItem(direction) {
     isEnabled = false;
-    let visibleCards = getVisibleCards();
-    for (let el of visibleCards) {
-        el.classList.add(direction);
 
-        // el.style.position='absolute'
-
-        el.addEventListener('animationend', function () {
-            this.classList.remove(direction, 'card_visible');
-            // this.remove();
-        })
-    }
-
+    let oldCardsWrapper = document.querySelector('.cards-wrapper');
+    oldCardsWrapper.classList.add(direction);
+    oldCardsWrapper.addEventListener('animationend', function () {
+        this.classList.remove(direction);
+        this.remove();
+    })
 
 }
 
 function showItem(direction) {
-    toggleSlider();
 
-    for (let el of nextSliderElements) {
+    let newCardsWrapper = toggleSlider();
+    let sliderWrapper = document.querySelector('.cards-content-wrapper')
+    sliderWrapper.appendChild(newCardsWrapper)
+    newCardsWrapper.classList.add(direction);
+    newCardsWrapper.style.position = 'fixed';
 
-        document.querySelector('.cards-wrapper').appendChild(el);
-        el.classList.add(direction);
+    // newCardsWrapper.style.display = 'flex';
 
-        el.style.display = 'flex';
-
-
-        el.addEventListener('animationend', function () {
-            this.classList.remove(direction);
-            this.classList.add('card_visible');
-            isEnabled = true;
-            el.removeAttribute( 'style' );
-        })
-    }
+    newCardsWrapper.addEventListener('animationend', function () {
+        this.classList.remove(direction);
+        newCardsWrapper.style.position = 'relative';
+        isEnabled = true;
+    })
 
 
 }
