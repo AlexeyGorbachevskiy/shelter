@@ -1,33 +1,15 @@
-// Resize
-// function resize() {
-//     let cards = document.querySelectorAll('.card')
-//     if (window.innerWidth >= 1280) {
-//         cards[1].classList.add('card_visible')
-//         cards[2].classList.add('card_visible')
-//     }
-//
-//     if (window.innerWidth >= 768 && window.innerWidth < 1280) {
-//         cards[2].classList.remove('card_visible')
-//         cards[1].classList.add('card_visible')
-//     }
-//
-//     if (window.innerWidth < 768) {
-//         cards[1].classList.remove('card_visible')
-//         cards[2].classList.remove('card_visible');
-//     }
-// }
-//
-// window.onload = function () {
-//     resize()
-// }
-// window.addEventListener(`resize`, event => {
-//     resize();
-// }, false);
-
-
-// Slider
-
 const pets = [
+    {
+        "name": "Katrine",
+        "img": "../../assets/images/pets/pets-katrine.png",
+        "type": "Cat",
+        "breed": "British Shorthair",
+        "description": "Katrine is a beautiful girl. She is as soft as the finest velvet with a thick lush fur. Will love you until the last breath she takes as long as you are the one. She is picky about her affection. She loves cuddles and to stretch into your hands for a deeper relaxations.",
+        "age": "6 months",
+        "inoculations": ["panleukopenia"],
+        "diseases": ["none"],
+        "parasites": ["none"]
+    },
     {
         "name": "Jennifer",
         "img": "../../assets/images/pets/pets-jennifer.png",
@@ -36,17 +18,6 @@ const pets = [
         "description": "Jennifer is a sweet 2 months old Labrador that is patiently waiting to find a new forever home. This girl really enjoys being able to go outside to run and play, but won't hesitate to play up a storm in the house if she has all of her favorite toys.",
         "age": "2 months",
         "inoculations": ["none"],
-        "diseases": ["none"],
-        "parasites": ["none"]
-    },
-    {
-        "name": "Sophia",
-        "img": "../../assets/images/pets/sophia.png",
-        "type": "Dog",
-        "breed": "Shih tzu",
-        "description": "Sophia here and I'm looking for my forever home to live out the best years of my life. I am full of energy. Everyday I'm learning new things, like how to walk on a leash, go potty outside, bark and play with toys and I still need some practice.",
-        "age": "1 month",
-        "inoculations": ["parvovirus"],
         "diseases": ["none"],
         "parasites": ["none"]
     },
@@ -62,6 +33,17 @@ const pets = [
         "parasites": ["none"]
     },
     {
+        "name": "Sophia",
+        "img": "../../assets/images/pets/sophia.png",
+        "type": "Dog",
+        "breed": "Shih tzu",
+        "description": "Sophia here and I'm looking for my forever home to live out the best years of my life. I am full of energy. Everyday I'm learning new things, like how to walk on a leash, go potty outside, bark and play with toys and I still need some practice.",
+        "age": "1 month",
+        "inoculations": ["parvovirus"],
+        "diseases": ["none"],
+        "parasites": ["none"]
+    },
+    {
         "name": "Scarlett",
         "img": "../../assets/images/pets/pets-scarlet.png",
         "type": "Dog",
@@ -69,17 +51,6 @@ const pets = [
         "description": "Scarlett is a happy, playful girl who will make you laugh and smile. She forms a bond quickly and will make a loyal companion and a wonderful family dog or a good companion for a single individual too since she likes to hang out and be with her human.",
         "age": "3 months",
         "inoculations": ["parainfluenza"],
-        "diseases": ["none"],
-        "parasites": ["none"]
-    },
-    {
-        "name": "Katrine",
-        "img": "../../assets/images/pets/pets-katrine.png",
-        "type": "Cat",
-        "breed": "British Shorthair",
-        "description": "Katrine is a beautiful girl. She is as soft as the finest velvet with a thick lush fur. Will love you until the last breath she takes as long as you are the one. She is picky about her affection. She loves cuddles and to stretch into your hands for a deeper relaxations.",
-        "age": "6 months",
-        "inoculations": ["panleukopenia"],
         "diseases": ["none"],
         "parasites": ["none"]
     },
@@ -117,6 +88,52 @@ const pets = [
         "parasites": ["lice", "fleas"]
     }
 ]
+//Pop up
+
+window.onload = function () {
+    initCards()
+}
+
+function initCards() {
+    let cards = document.querySelectorAll('.card');
+    for (let el of cards) {
+        el.addEventListener('click', (e) => {
+            openPopUp(e);
+        })
+    }
+}
+
+
+function openPopUp(e) {
+    const modalWindow = document.querySelector('.modal-window');
+    const popupWrapper = document.querySelector('.popup-wrapper');
+
+    document.querySelector('.popup-img').src = `${pets[e.currentTarget.id]['img']}`;
+    document.querySelector('.popup-content__h3').textContent = `${pets[e.currentTarget.id]['name']}`;
+    document.querySelector('.popup-content__h4').textContent = `${pets[e.currentTarget.id]['type']} - ${pets[e.currentTarget.id]['breed']}`;
+    document.querySelector('.popup-content__h5').textContent = `${pets[e.currentTarget.id]['description']}`;
+    document.querySelector('.popup-content__age').textContent = `${pets[e.currentTarget.id]['age']}`;
+    document.querySelector('.popup-content__inoculations').textContent = `${pets[e.currentTarget.id]['inoculations']}`;
+    document.querySelector('.popup-content__diseases').textContent = `${pets[e.currentTarget.id]['diseases']}`;
+    document.querySelector('.popup-content__parasites').textContent = `${pets[e.currentTarget.id]['parasites']}`;
+
+    modalWindow.style.display = 'flex';
+
+    modalWindow.addEventListener('click', (e) => {
+        if (modalWindow === e.target || popupWrapper===e.target) {
+            modalWindow.style.display = 'none';
+            e.stopPropagation();
+        }
+    })
+    const closeBtn = document.querySelector('.popup-close-btn');
+    closeBtn.addEventListener('click', () => {
+        modalWindow.style.display = 'none';
+    })
+
+}
+
+
+// Slider
 let isEnabled = true;
 let leftBtn = document.querySelector('.cards-wrapper__btn-left');
 let leftBtn320 = document.querySelector('.cards-wrapper__btn-left-320');
@@ -126,12 +143,14 @@ let rightBtn320 = document.querySelector('.cards-wrapper__btn-right-320');
 leftBtn320.addEventListener('click', function () {
     if (isEnabled) {
         previousItem();
+        initCards();
     }
 
 })
 leftBtn.addEventListener('click', function () {
     if (isEnabled) {
         previousItem();
+        initCards();
     }
 
 })
@@ -139,12 +158,14 @@ leftBtn.addEventListener('click', function () {
 rightBtn320.addEventListener('click', function () {
     if (isEnabled) {
         nextItem();
+        initCards();
     }
 })
 
 rightBtn.addEventListener('click', function () {
     if (isEnabled) {
         nextItem();
+        initCards();
     }
 })
 
@@ -172,6 +193,7 @@ function generateNextCardsRandomIndexes(cards) {
 function createSliderElements(index) {
     let card = document.createElement('div');
     card.classList.add('card');
+    card.id = index;
     let img = document.createElement('img');
     img.classList.add('card__img')
     img.setAttribute('src', pets[index]['img'])
@@ -247,7 +269,6 @@ function showItem(direction) {
     sliderWrapper.appendChild(newCardsWrapper)
     newCardsWrapper.classList.add(direction);
     newCardsWrapper.style.position = 'fixed';
-
     // newCardsWrapper.style.display = 'flex';
 
     newCardsWrapper.addEventListener('animationend', function () {
