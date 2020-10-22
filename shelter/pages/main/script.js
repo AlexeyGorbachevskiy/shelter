@@ -1,4 +1,4 @@
-const pets = [
+let pets = [
     {
         "name": "Katrine",
         "img": "../../assets/images/pets/pets-katrine.png",
@@ -90,9 +90,17 @@ const pets = [
 ]
 //Pop up
 
-window.onload = function () {
-    initCards()
-}
+fetch('../../json/pets.json')
+    .then((res) => res.json())
+    .then((res2) => {
+        pets = res2;
+        initCards();
+    })
+
+
+// window.onload = function () {
+//     initCards()
+// }
 
 function initCards() {
     let cards = document.querySelectorAll('.card');
@@ -105,6 +113,7 @@ function initCards() {
 
 
 function openPopUp(e) {
+    document.body.style.overflow = 'hidden';
     const modalWindow = document.querySelector('.modal-window');
     const popupWrapper = document.querySelector('.popup-wrapper');
 
@@ -120,13 +129,15 @@ function openPopUp(e) {
     modalWindow.style.display = 'flex';
 
     modalWindow.addEventListener('click', (e) => {
-        if (modalWindow === e.target || popupWrapper===e.target) {
+        if (modalWindow === e.target || popupWrapper === e.target) {
+            document.body.style.overflow = 'visible';
             modalWindow.style.display = 'none';
             e.stopPropagation();
         }
     })
     const closeBtn = document.querySelector('.popup-close-btn');
     closeBtn.addEventListener('click', () => {
+        document.body.style.overflow = 'visible';
         modalWindow.style.display = 'none';
     })
 
@@ -240,11 +251,13 @@ function toggleSlider() {
 
 
 function previousItem() {
+    document.body.style.overflowX = 'hidden';
     hideItem('to-right');
     showItem('from-left');
 }
 
 function nextItem() {
+    document.body.style.overflowX = 'hidden';
     hideItem('to-left');
     showItem('from-right');
 }
@@ -252,9 +265,9 @@ function nextItem() {
 
 function hideItem(direction) {
     isEnabled = false;
-
     let oldCardsWrapper = document.querySelector('.cards-wrapper');
     oldCardsWrapper.classList.add(direction);
+
     oldCardsWrapper.addEventListener('animationend', function () {
         this.classList.remove(direction);
         this.remove();
@@ -263,10 +276,9 @@ function hideItem(direction) {
 }
 
 function showItem(direction) {
-
     let newCardsWrapper = toggleSlider();
     let sliderWrapper = document.querySelector('.cards-content-wrapper')
-    sliderWrapper.appendChild(newCardsWrapper)
+    sliderWrapper.appendChild(newCardsWrapper);
     newCardsWrapper.classList.add(direction);
     newCardsWrapper.style.position = 'fixed';
     // newCardsWrapper.style.display = 'flex';
@@ -275,6 +287,7 @@ function showItem(direction) {
         this.classList.remove(direction);
         newCardsWrapper.style.position = 'relative';
         isEnabled = true;
+        document.body.style.overflow = 'visible';
     })
 
 

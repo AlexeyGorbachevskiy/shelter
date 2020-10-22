@@ -298,10 +298,6 @@ h1 {
 }
 
 
-
-
-
-
 .pets {
     width: 100%;
     /*padding-top: 120px;*/
@@ -353,12 +349,21 @@ h1 {
     margin-bottom: 30px;
 
     cursor: pointer;
-    display: flex;
+    /*display: flex;*/
     flex-direction: column;
     padding: 0 0 30px 0;
     background-color: var(--color-light-s);
     border-radius: 9px;
 }
+
+.card_visible{
+    display: flex;
+}
+.card_invisible{
+    display: none;
+}
+
+
 
 .card:last-of-type {
     margin-right: 0;
@@ -441,19 +446,19 @@ h1 {
     letter-spacing: 0.06em;
 }
 
-.paginator_active {
+.paginator_currentPage {
     color: var(--color-dark-3xl);
     background-color: var(--color-primary-color);
 }
 
 
-.paginator_normal {
+.paginator_active {
     color: var(--color-dark-3xl);
     border: 2px solid var(--color-primary-color);
     background-color: transparent;
 }
 
-.paginator_normal:hover {
+.paginator_active:hover {
     background-color: var(--color-primary-light);
     border: none;
 }
@@ -614,6 +619,14 @@ h1 {
 
 
 @media screen and (max-width: 1279px) {
+
+    /*.card:nth-child(7) {*/
+    /*    display: none;*/
+    /*}*/
+
+    /*.card:nth-child(8) {*/
+    /*    display: none;*/
+    /*}*/
 
     .modal-window {
         display: none;
@@ -778,12 +791,6 @@ h1 {
     }
 
 
-
-
-
-
-
-
     .title-wrapper {
         padding-top: 10px;
     }
@@ -816,10 +823,9 @@ h1 {
     }
 
 
-    .card-768 {
-        display: none;
-    }
-
+    /*.card-768 {*/
+    /*    display: none;*/
+    /*}*/
     .navigation-wrapper {
         margin-top: 10px;
     }
@@ -851,6 +857,17 @@ h1 {
 
 
 @media screen and (max-width: 767px) {
+
+    /*.card:nth-child(6) {*/
+    /*    display: none;*/
+    /*}*/
+
+    /*.card:nth-child(5) {*/
+    /*    display: none;*/
+    /*}*/
+    /*.card:nth-child(4) {*/
+    /*    display: none;*/
+    /*}*/
 
 
     .modal-window {
@@ -1024,13 +1041,6 @@ h1 {
     .popup-content__span1 {
         font-weight: bold;
     }
-
-
-
-
-
-
-
 
 
     .sidebarHeader {
@@ -1209,9 +1219,9 @@ h1 {
         align-items: center;
     }
 
-    .card-320 {
-        display: none;
-    }
+    /*.card-320 {*/
+    /*    display: none;*/
+    /*}*/
 
     .navigation-wrapper {
         width: 300px;

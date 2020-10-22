@@ -1,98 +1,231 @@
-const pets = [
-    {
-        "name": "Katrine",
-        "img": "../../assets/images/pets/pets-katrine.png",
-        "type": "Cat",
-        "breed": "British Shorthair",
-        "description": "Katrine is a beautiful girl. She is as soft as the finest velvet with a thick lush fur. Will love you until the last breath she takes as long as you are the one. She is picky about her affection. She loves cuddles and to stretch into your hands for a deeper relaxations.",
-        "age": "6 months",
-        "inoculations": ["panleukopenia"],
-        "diseases": ["none"],
-        "parasites": ["none"]
-    },
-    {
-        "name": "Jennifer",
-        "img": "../../assets/images/pets/pets-jennifer.png",
-        "type": "Dog",
-        "breed": "Labrador",
-        "description": "Jennifer is a sweet 2 months old Labrador that is patiently waiting to find a new forever home. This girl really enjoys being able to go outside to run and play, but won't hesitate to play up a storm in the house if she has all of her favorite toys.",
-        "age": "2 months",
-        "inoculations": ["none"],
-        "diseases": ["none"],
-        "parasites": ["none"]
-    },
-    {
-        "name": "Woody",
-        "img": "../../assets/images/pets/pets-woody.png",
-        "type": "Dog",
-        "breed": "Golden Retriever",
-        "description": "Woody is a handsome 3 1/2 year old boy. Woody does know basic commands and is a smart pup. Since he is on the stronger side, he will learn a lot from your training. Woody will be happier when he finds a new family that can spend a lot of time with him.",
-        "age": "3 years 6 months",
-        "inoculations": ["adenovirus", "distemper"],
-        "diseases": ["right back leg mobility reduced"],
-        "parasites": ["none"]
-    },
-    {
-        "name": "Sophia",
-        "img": "../../assets/images/pets/sophia.png",
-        "type": "Dog",
-        "breed": "Shih tzu",
-        "description": "Sophia here and I'm looking for my forever home to live out the best years of my life. I am full of energy. Everyday I'm learning new things, like how to walk on a leash, go potty outside, bark and play with toys and I still need some practice.",
-        "age": "1 month",
-        "inoculations": ["parvovirus"],
-        "diseases": ["none"],
-        "parasites": ["none"]
-    },
-    {
-        "name": "Scarlett",
-        "img": "../../assets/images/pets/pets-scarlet.png",
-        "type": "Dog",
-        "breed": "Jack Russell Terrier",
-        "description": "Scarlett is a happy, playful girl who will make you laugh and smile. She forms a bond quickly and will make a loyal companion and a wonderful family dog or a good companion for a single individual too since she likes to hang out and be with her human.",
-        "age": "3 months",
-        "inoculations": ["parainfluenza"],
-        "diseases": ["none"],
-        "parasites": ["none"]
-    },
-    {
-        "name": "Timmy",
-        "img": "../../assets/images/pets/pets-timmy.png",
-        "type": "Cat",
-        "breed": "British Shorthair",
-        "description": "Timmy is an adorable grey british shorthair male. He loves to play and snuggle. He is neutered and up to date on age appropriate vaccinations. He can be chatty and enjoys being held. Timmy has a lot to say and wants a person to share his thoughts with.",
-        "age": "2 years 3 months",
-        "inoculations": ["calicivirus", "viral rhinotracheitis"],
-        "diseases": ["kidney stones"],
-        "parasites": ["none"]
-    },
-    {
-        "name": "Freddie",
-        "img": "../../assets/images/pets/pets-freddie.png",
-        "type": "Cat",
-        "breed": "British Shorthair",
-        "description": "Freddie is a little shy at first, but very sweet when he warms up. He likes playing with shoe strings and bottle caps. He is quick to learn the rhythms of his human’s daily life. Freddie has bounced around a lot in his life, and is looking to find his forever home.",
-        "age": "2 months",
-        "inoculations": ["rabies"],
-        "diseases": ["none"],
-        "parasites": ["none"]
-    },
-    {
-        "name": "Charly",
-        "img": "../../assets/images/pets/pets-charly.png",
-        "type": "Dog",
-        "breed": "Jack Russell Terrier",
-        "description": "This cute boy, Charly, is three years old and he likes adults and kids. He isn’t fond of many other dogs, so he might do best in a single dog home. Charly has lots of energy, and loves to run and play. We think a fenced yard would make him very happy.",
-        "age": "8 years",
-        "inoculations": ["bordetella bronchiseptica", "leptospirosis"],
-        "diseases": ["deafness", "blindness"],
-        "parasites": ["lice", "fleas"]
+let pets = [];
+let lastPage = 6;
+let currentPage = 1;
+
+fetch('../../json/pets.json')
+    .then((res) => res.json())
+    .then((res2) => {
+        pets = res2;
+        createFullPetsList();
+        fullPetsList = sort863(fullPetsList);
+        createPets(fullPetsList);
+        initCards();
+        displayCardsForPage(currentPage)
+    })
+
+
+// Pagination
+
+let fullPetsList = []; // 48 elements
+
+const createFullPetsList = () => {
+    for (let i = 0; i < 6; i++) {
+        let tempPets = [...pets];
+        for (let j = pets.length; j > 0; j--) {
+            let randInd = Math.floor(Math.random() * j);
+            const randElem = tempPets.splice(randInd, 1)[0];
+            tempPets.push(randElem);
+        }
+        fullPetsList = [...fullPetsList, ...tempPets];
     }
-]
+}
+
+const sort863 = (list) => {
+    let unique8List = [];
+    let length = list.length;
+
+    // until unique rows count - 6
+    for (let i = 0; i < length / 8; i++) {
+        const uniqueStepList = [];
+        for (j = 0; j < list.length; j++) {
+            if (uniqueStepList.length >= 8) {
+                break;
+            }
+            const isUnique = !uniqueStepList.some((item) => {
+                return item.name === list[j].name;
+            });
+            if (isUnique) {
+                uniqueStepList.push(list[j]);
+                list.splice(j, 1);
+                j--;
+            }
+        }
+        unique8List = [...unique8List, ...uniqueStepList];
+    }
+    list = unique8List;
+
+
+    list = sort6recursively(list);
+
+    return list;
+}
+
+const sort6recursively = (list) => {
+    const length = list.length;
+
+    // until unique rows count - 8
+    for (let i = 0; i < (length / 6); i++) {
+
+        // search for equal elements in each 6 elements in fullPetsList
+        const stepList = list.slice(i * 6, (i * 6) + 6);
+        for (let j = 0; j < 6; j++) {
+            const duplicatedItem = stepList.find((item, ind) => {
+                return item.name === stepList[j].name && (ind !== j);
+            });
+
+            if (duplicatedItem !== undefined) {
+                // index of  duplicatedItem in fullPetsList
+                const ind = (i * 6) + j;
+                // which row (from 8) duplicatedItem belongs
+                const which8OfList = Math.trunc(ind / 8);
+
+                // delete duplicatedItem and paste it in begin of 8 row
+                list.splice(which8OfList * 8, 0, list.splice(ind, 1)[0]);
+
+                sort6recursively(list);
+            }
+        }
+    }
+
+    return list;
+}
+
+const createPets = (petsList) => {
+    const wrapper = document.querySelector(".cards-content-wrapper");
+    wrapper.innerHTML += createElements(petsList);
+}
+
+const createElements = (petsList) => {
+    let str = '';
+    for (let i = 0; i < petsList.length; i++) {
+        // str += `<img src=" ${ petsList[i].img } ">`;
+        str += `<div id=${petsList[i].id} class="card">
+                        <img class="card__img" src="${petsList[i].img}" alt="${petsList[i].breed} image">
+                        <h3 class="card__title">${petsList[i].name}</h3>
+                        <div class="cards-btn-wrapper">
+                            <button class="card__btn">Learn more</button>
+                        </div>
+                    </div>`;
+    }
+    return str;
+}
+
+const displayCardsForPage = (currentPage) => {
+    const itemsOnPageCount = fullPetsList.length / lastPage;
+    const allCards = document.querySelectorAll('.card');
+
+    for (let i = 0; i < allCards.length; i++) {
+        if (i >= (currentPage * itemsOnPageCount) - itemsOnPageCount && i <= (currentPage * itemsOnPageCount) - 1) {
+            allCards[i].classList.remove('card_invisible');
+            allCards[i].classList.add('card_visible');
+        } else {
+            allCards[i].classList.remove('card_visible');
+            allCards[i].classList.add('card_invisible');
+        }
+    }
+}
+
+
+window.addEventListener('load', () => {
+    lastPage = getLastPage();
+})
+window.addEventListener('resize', () => {
+    let prevLastPage = lastPage;
+    lastPage = getLastPage();
+    changeCurrentPage(prevLastPage, lastPage)
+    document.querySelector("#currentPage").textContent = (currentPage).toString();
+    displayCardsForPage(currentPage);
+    checkPaginatorBtnsStyles();
+})
+
+const changeCurrentPage = (prevLastPage, lastPage) => {
+    if (prevLastPage !== lastPage) {
+        const itemsOnPrevPageCount = fullPetsList.length / prevLastPage;
+        const itemsOnNewPageCount = fullPetsList.length / lastPage;
+        // not index but number (1 instead 0) in full pets list
+        let firstElementNumber = (itemsOnPrevPageCount * (currentPage - 1)) + 1;
+
+
+        currentPage = Math.ceil(firstElementNumber / itemsOnNewPageCount);
+
+    }
+}
+
+const getLastPage = () => {
+    if (document.querySelector("body").offsetWidth >= 1280) {
+        return 6
+    } else if (document.querySelector("body").offsetWidth >= 768 && document.querySelector("body").offsetWidth < 1280) {
+        return 8
+    } else if (document.querySelector("body").offsetWidth < 768) {
+        return 16
+    }
+}
+
+const checkPaginatorBtnsStyles = () => {
+    if (currentPage === 1) {
+        document.querySelector("#prevPage").classList.add('paginator_inactive');
+        document.querySelector("#prevPage").classList.remove('paginator_active');
+        document.querySelector("#to-firstPage").classList.remove('paginator_active');
+        document.querySelector("#to-firstPage").classList.add('paginator_inactive');
+    }
+    if (currentPage < lastPage) {
+        document.querySelector("#nextPage").classList.add('paginator_active');
+        document.querySelector("#nextPage").classList.remove('paginator_inactive');
+        document.querySelector("#to-LastPage").classList.add('paginator_active');
+        document.querySelector("#to-LastPage").classList.remove('paginator_inactive');
+    }
+    if (currentPage > 1) {
+        document.querySelector("#prevPage").classList.remove('paginator_inactive');
+        document.querySelector("#prevPage").classList.add('paginator_active');
+        document.querySelector("#to-firstPage").classList.add('paginator_active');
+        document.querySelector("#to-firstPage").classList.remove('paginator_inactive');
+    }
+    if (currentPage === lastPage) {
+        document.querySelector("#nextPage").classList.add('paginator_inactive');
+        document.querySelector("#nextPage").classList.remove('paginator_active');
+        document.querySelector("#to-LastPage").classList.remove('paginator_active');
+        document.querySelector("#to-LastPage").classList.add('paginator_inactive');
+    }
+}
+
+
+document.querySelector("#prevPage").addEventListener('click', (e) => {
+    if (currentPage > 1) {
+        currentPage--;
+    }
+    checkPaginatorBtnsStyles();
+    document.querySelector("#currentPage").textContent = (currentPage).toString();
+    displayCardsForPage(currentPage);
+
+});
+
+document.querySelector("#nextPage").addEventListener('click', (e) => {
+    if (currentPage < lastPage) {
+        currentPage++;
+    }
+    checkPaginatorBtnsStyles()
+    document.querySelector("#currentPage").textContent = (currentPage).toString();
+    displayCardsForPage(currentPage);
+});
+document.querySelector("#to-LastPage").addEventListener('click', (e) => {
+    currentPage = lastPage;
+    document.querySelector("#currentPage").textContent = (currentPage).toString();
+    checkPaginatorBtnsStyles();
+    displayCardsForPage(currentPage);
+});
+document.querySelector("#to-firstPage").addEventListener('click', (e) => {
+    currentPage = 1;
+    document.querySelector("#currentPage").textContent = (currentPage).toString();
+    checkPaginatorBtnsStyles();
+    displayCardsForPage(currentPage);
+});
+
+
 //Pop up
 
-window.onload = function () {
-    initCards()
-}
+// window.onload = function () {
+//     initCards()
+// }
 
 function initCards() {
     let cards = document.querySelectorAll('.card');
@@ -105,6 +238,8 @@ function initCards() {
 
 
 function openPopUp(e) {
+
+    document.body.style.overflow = 'hidden';
     const modalWindow = document.querySelector('.modal-window');
     const popupWrapper = document.querySelector('.popup-wrapper');
 
@@ -121,12 +256,14 @@ function openPopUp(e) {
 
     modalWindow.addEventListener('click', (e) => {
         if (modalWindow === e.target || popupWrapper === e.target) {
+            document.body.style.overflow = 'auto';
             modalWindow.style.display = 'none';
             e.stopPropagation();
         }
     })
     const closeBtn = document.querySelector('.popup-close-btn');
     closeBtn.addEventListener('click', () => {
+        document.body.style.overflow = 'visible';
         modalWindow.style.display = 'none';
     })
 
